@@ -13,19 +13,22 @@ class Media extends React.Component {
      total: 0
   };
    this.handleInputChange = this.handleInputChange.bind(this);
-   this.handleSubmit = this.handleInputChange.bind(this);
+   this.handleSubmit = this.handleSubmit.bind(this);
    //this.handleClick = this.handleClick.bind(this);
 }
    handleInputChange = (event) => {
     this.setState({input: event.target.value})
    }
-   handleSubmit = (event) => {
-     event.preventDefault();
-     axios.get(`https://api.github.com/search/repositories?q=${this.state.value}`)
-       .then(res =>
+   handleSubmit(event) {
+    //  event.preventDefault();
+     axios.get(`https://api.github.com/search/repositories?q=${this.state.input}`)
+       .then(res => {
+        console.log(res)
         console.log(res.data)
+       }
       ).catch(err => {
        alert('error')
+       console.log(err)
     });
   }
   render() {
