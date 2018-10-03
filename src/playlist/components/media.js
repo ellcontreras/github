@@ -18,10 +18,11 @@ class Media extends React.Component {
     this.setState({input: event.target.value})
    }
    handleSubmit = () => {
-     axios.get(`https://api.github.com/search/repositories?q=tetris`,this.state.input)
-       .then(res =>
+     // Hace la petición buscando los repositorios en base al input
+     axios.get(`https://api.github.com/search/repositories?q=${this.state.input}`)
+       .then(res => 
         this.setState({items:res.data.items, total: res.data.total_count})
-      ).catch(err => {
+       ).catch(err => {
        alert('error')
     });
   }
@@ -29,11 +30,6 @@ class Media extends React.Component {
 // No necesitas usar el EVENT ya que no se trata de ningún formulario donde
 // necesites detener el funcionamiento normal que es recargar la página
   render() {
-   let itemsDOM = this.state.items.map((items)=> {
-      <li key={items.id}>
-         {items.name}
-      </li>
-   });
      return(
          <div className="App">
            <div className='form'>
@@ -46,7 +42,13 @@ class Media extends React.Component {
           </div>
           <div className="results">
              <h5>Total: {this.state.total}</h5>
-             <ul>{itemsDOM}</ul>
+             <ul>
+              {this.state.items.map(items => {
+                  return <li key={items.id}>
+                    {items.name}
+                  </li>
+              })}
+             </ul>
           </div>
         </div>
       )
