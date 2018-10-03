@@ -20,7 +20,6 @@ class Media extends React.Component {
    handleSubmit = () => {
      axios.get(`https://api.github.com/search/repositories?q=tetris`,this.state.input)
        .then(res =>
-         //console.log(res.data.items)
         this.setState({items:res.data.items, total: res.data.total_count})
       ).catch(err => {
        alert('error')
